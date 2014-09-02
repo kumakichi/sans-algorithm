@@ -6,10 +6,10 @@ typedef int sEleType;
 typedef struct _stack_node {
 	sEleType data;
 	struct _stack_node *next;
-} stack_node, *p_stack_node;
+} stack_node;
 
 typedef struct _link_stack {
-	p_stack_node top;
+	stack_node * top;
 	int count;
 } link_stack;
 
@@ -21,7 +21,7 @@ void init_stack(link_stack * s)
 
 void push(link_stack * s, sEleType e)
 {
-	p_stack_node tmp = malloc(sizeof(stack_node));
+	stack_node * tmp = malloc(sizeof(stack_node));
 	tmp->next = s->top;
 	tmp->data = e;
 	s->top = tmp;
@@ -38,7 +38,7 @@ int is_empty(link_stack * s)
 
 int pop(link_stack * s, sEleType * e)
 {
-	p_stack_node tmp;
+	stack_node * tmp;
 
 	if (is_empty(s))
 		return -1;
