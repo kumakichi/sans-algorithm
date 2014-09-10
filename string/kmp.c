@@ -5,7 +5,7 @@ void gen_next(char *s, int *next, int slen)
 {
 	int prefix, suffix;
 
-	next[0] = 0;
+	next[0] = 0;		/* here index of array 'next' means length of sub string of 's' */
 	next[1] = 0;
 
 	for (prefix = 0, suffix = 1; suffix <= slen - 2; suffix++) {
@@ -13,8 +13,8 @@ void gen_next(char *s, int *next, int slen)
 			next[suffix + 1] = next[suffix] + 1;
 			prefix++;
 		} else {
-			prefix = 0;
 			next[suffix + 1] = 0;
+			prefix = 0;	/* not found, back to very first of prefix(that is, offset 0) */
 		}
 	}
 }
@@ -29,12 +29,11 @@ int main(int argc, char *argv[])
 	gen_next(wanted, next, wlen);
 
 	for (want_idx = 0, src_idx = 0; src_idx < slen; src_idx++) {
+		if (want_idx == wlen)
+			break;
+
 		if (wanted[want_idx] == src[src_idx]) {
 			want_idx++;
-			if (want_idx == wlen) {
-				got = 1;
-				break;
-			}
 		} else {
 			if (want_idx > 0) {
 				src_idx -= next[want_idx] + 1;
@@ -43,8 +42,9 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	if (got)
-		printf("%d\n", src_idx - wlen + 1);
+	if (want_idx == wlen)
+		printf("found [%s] in [%s],at position : %d\n",
+		       wanted, src, src_idx - wlen);
 	else
 		printf("not found\n");
 
