@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 			want_idx++;
 		} else {
 			if (want_idx > 0) {
-				src_idx -= next[want_idx] + 1;
+				src_idx -= next[want_idx] + 1;  /* here decrease addtional 1, because the 'for' loop will increase it instantly*/
 				want_idx = 0;
 			}
 		}
