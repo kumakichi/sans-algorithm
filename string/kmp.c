@@ -8,9 +8,14 @@ void gen_next(char *s, int *next, int slen)
 	next[0] = 0;		/* here index of array 'next' means length of sub string of 's' */
 	next[1] = 0;
 
-	for (prefix = 0, suffix = 1; suffix <= slen - 2; suffix++) {
+/* start status: */
+/*     A        B       C D A B D */
+/*     |        | */
+/*   prefix  suffix */
+
+	for (prefix = 0, suffix = 1; suffix < slen; suffix++) {
 		if (s[prefix] == s[suffix]) {
-			next[suffix + 1] = next[suffix] + 1;
+			next[suffix + 1] = next[suffix] + 1;  /* index of array 'next' means ... */
 			prefix++;
 		} else {
 			next[suffix + 1] = 0;
