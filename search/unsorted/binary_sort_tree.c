@@ -10,14 +10,13 @@ typedef struct _binode {
 } binode, *bitree;
 
 /* check whether key exists in tree 't' */
-/* 'f' point to the parent of 't',init val NULL */
-
+/* f, parent node */
 /* if found, p point to the node and return TRUE */
 /* if not found, p point to the last node in this search,and return FALSE */
 
 status search_bst(bitree t, int key, bitree f, bitree * p)
 {
-	if (!t) {
+	if (NULL == t) {
 		*p = f;
 		return FALSE;
 	} else if (key == t->data) {
@@ -40,7 +39,7 @@ status insert_bst(bitree * t, int key)
 	tmp->data = key;
 	tmp->lchild = tmp->rchild = NULL;
 
-	if (!p)
+	if (NULL == p)
 		*t = tmp;	/* root */
 	else if (key < p->data)
 		p->lchild = tmp;
@@ -67,7 +66,7 @@ status real_delete(bitree * p)
 		s = (*p)->lchild;
 		while (s->rchild) {
 			q = s;
-			s = s->rchild;  /* 'q' is parent of 's' */
+			s = s->rchild;	/* 'q' is parent of 's' */
 		}
 
 		(*p)->data = s->data;
@@ -86,27 +85,36 @@ status delete_bst(bitree * t, int key)
 {
 	bitree p;
 
-	if (NULL == *t)
-		return FALSE;
+	if (FALSE == search_bst(*t, key, NULL, &p))
+		return FALSE;	/* node not found */
 
-	if (key == (*t)->data)
-		return real_delete(t);
-	else if (key < (*t)->data)
-		return delete_bst(&(*t)->lchild, key);
-	else
-		return delete_bst(&(*t)->rchild, key);
+	real_delete(&p);
+}
+
+void preOrderTraverse(bitree t)
+{
+	if (NULL == t)
+		return;
+	printf("%d\n", t->data);
+	preOrderTraverse(t->lchild);
+	preOrderTraverse(t->rchild);
 }
 
 int main(int argc, char *argv[])
 {
 	int i, n;
 	bitree t = NULL;
-	int a[] = { 62, 88, 58, 47, 35, 73, 51, 99, 37, 93 };
+	int a[] = { 62, 88, 58, 47, 35, 73, 51, 95, 99, 37, 93 };
 
 	n = sizeof(a) / sizeof(a[0]);
 	for (i = 0; i < n; i++) {
 		insert_bst(&t, a[i]);
 	}
+
+	preOrderTraverse(t);
+	delete_bst(&t, 47);
+	printf("after delete 47:\n");
+	preOrderTraverse(t);
 
 	return 0;
 }

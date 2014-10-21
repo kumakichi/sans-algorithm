@@ -2,7 +2,7 @@
 
 /* needed : src is sorted */
 
-int fibonacci_search(int *src, int nums, const int want)
+int binary_search(int *src, int nums, const int want)
 {
 	int low, mid, high, cnt = 0;
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv)
 	int nums, src[] = { 0, 1, 16, 24, 35, 47, 59, 62, 73, 88, 93 };
 
 	nums = sizeof(src) / sizeof(src[0]);
-	printf("found %d, index %d\n", want, fibonacci_search(src, nums, want));
+	printf("found %d, index %d\n", want, binary_search(src, nums, want));
 
 	return 0;
 }

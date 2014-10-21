@@ -18,7 +18,7 @@ int fibonacci_search(int *fibo, int *a, int n, const int want)
 	low = 0, high = n - 1;
 
 	k = 0;
-	while (n > fibo[k] - 1)	/* calc index in array fibonacci */
+	while (n - 1 > fibo[k] - 1)	/* calc index in array fibonacci */
 		k++;
 
 	while (low <= high) {
