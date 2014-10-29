@@ -25,15 +25,17 @@ void merge(int src[], int result[], int s, int m, int e)
 void merge_sort(int src[], int result[], int s, int e)
 {
 	int m;
-	int tmp[10];
+	int *tmp = NULL;
 
 	if (s == e) {
 		result[s] = src[s];
 	} else {
+		tmp = malloc(sizeof(int) * e);
 		m = (s + e) / 2;	/* middle */
 		merge_sort(src, tmp, s, m);
 		merge_sort(src, tmp, m + 1, e);
 		merge(tmp, result, s, m, e);
+		free(tmp);
 	}
 }
 
