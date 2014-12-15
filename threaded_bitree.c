@@ -28,6 +28,7 @@ void InThreading(binode * node)
 		node->l = prev;
 		node->ltag = THREAD;
 	}
+
 	if (prev && !prev->r) {
 		prev->r = node;
 		prev->rtag = THREAD;
@@ -41,11 +42,6 @@ void create_node(binode ** tree, int val)
 {
 	*tree = malloc(sizeof(binode));
 	(*tree)->data = val;
-}
-
-void PreTraverseInThreaded(binode * tree)
-{
-	binode *p = tree;
 }
 
 void InTraverse(binode * tree)

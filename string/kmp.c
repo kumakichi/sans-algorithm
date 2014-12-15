@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 	char *wanted = "ABCDABD";
 	char *src = "BBC ABCDAB ABCDABCDABDE";
 	int want_idx, src_idx, got = 0;
-	int wlen = strlen(wanted), slen = strlen(src), next[slen];
+	int wlen = strlen(wanted), slen = strlen(src), next[wlen];
 
 	gen_next(wanted, next, wlen);
 
